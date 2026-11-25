@@ -5,32 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Train Model</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .result-box {
+            width: 50%;
+            margin: 20px auto 0 auto;
+            padding: 14px 18px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            color: #155724;
+            text-align: center;
+        }
+        .result-box p { margin: 4px 0; }
+    </style>
 </head>
 <body>
     <h2>Train Your Model</h2>
-    
+
     <form method="post">
         <label for="target_column">Select Target Column:</label>
         <select name="target_column" id="target_column" required>
             {% for column in columns %}
-                <option value="{{ column }}">{{ column }}</option>
+                <option value="{{ column }}" {% if request.form.get('target_column') == column %}selected{% endif %}>{{ column }}</option>
             {% endfor %}
         </select>
 
         <label for="model_type">Select Model Type:</label>
         <select name="model_type" id="model_type">
-            <option value="classification">Classification</option>
-            <option value="regression">Regression</option>
+            <option value="classification" {% if request.form.get('model_type') == 'classification' %}selected{% endif %}>Classification</option>
+            <option value="regression" {% if request.form.get('model_type') == 'regression' %}selected{% endif %}>Regression</option>
         </select>
 
         <button type="submit">Train Model</button>
     </form>
 
     {% if message %}
-    <div class="d-flex justify-content-center mt-3">
-        <div class="alert alert-success text-center w-50">
-        {{ message }}
-        </div>
+    <div class="result-box">
+        {% if request.form.get('target_column') %}
+        <p><strong>Target:</strong> {{ request.form.get('target_column') }}
+           &nbsp;|&nbsp;
+           <strong>Model:</strong> {{ request.form.get('model_type')|capitalize }}</p>
+        {% endif %}
+        <p>{{ message }}</p>
     </div>
     {% endif %}
 </body>

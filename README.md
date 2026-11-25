@@ -30,27 +30,24 @@ A Flask web application for exploring a CSV dataset, preprocessing it, visualizi
 |---|---|
 | **Upload** | Accepts CSV files and loads them with Pandas |
 | **Analysis** | Shows column names, data types, missing values per column, shape, summary statistics, and the first and last rows |
-| **Preprocessing** | Drop rows with missing values, fill missing values with the column mean, min-max normalization, label encoding of text columns, and column deletion |
+| **Preprocessing** | Drop rows with missing values, fill missing values with the column mean, min-max normalization, label encoding of text columns, and column deletion, with a button to download the preprocessed dataset |
 | **Visualization** | Generates a pair plot, a correlation heatmap, and a box plot of the numeric features |
 | **Model training** | Trains a classification or regression model on a target column you choose, and reports accuracy or MSE |
 | **Model saving** | Saves the trained model to `model.pkl` using Joblib |
 
-<!-- TODO: after you add screenshots to a screenshots/ folder, delete this line and the matching line below.
 ## Screenshots
+
+Demo dataset: the Advertising dataset (200 rows: TV, Radio, Newspaper spend and Sales).
 
 | Upload | Dataset analysis |
 |---|---|
 | ![Upload](screenshots/upload.png) | ![Analysis](screenshots/analysis.png) |
 
-| Preprocessing | Visualizations |
+| Preprocessing | Model training (Sales, Regression) |
 |---|---|
-| ![Preprocessing](screenshots/preprocess.png) | ![Visualizations](screenshots/visualize.png) |
+| ![Preprocessing](screenshots/preprocess.png) | ![Training](screenshots/train.png) |
 
-![Training result](screenshots/train.png)
--->
-## Screenshots
-
-Screenshots coming soon.
+![Visualizations](screenshots/visualize.png)
 
 ## How It Works
 
@@ -75,6 +72,8 @@ Upload CSV -> Analyze -> Preprocess -> Visualize -> Select target -> Train model
 | Classification | `RandomForestClassifier`, evaluated with accuracy |
 | Regression | `LinearRegression`, evaluated with mean squared error (MSE) |
 | Saving | Trained model saved to `model.pkl` with Joblib |
+
+**Demo result:** on the Advertising dataset with `Sales` as the target and the regression option, the app reports an MSE of 3.20 on the 20% test split.
 
 Features must be numeric before training, so apply label encoding on the Preprocess page first if your data has text columns.
 
@@ -112,9 +111,10 @@ Features must be numeric before training, so apply label encoding on the Preproc
 git clone https://github.com/devanbeeda/dataset-analyzer-ml-platform.git
 cd dataset-analyzer-ml-platform
 
-# 2. (Optional) create a virtual environment
+# 2. Create and activate a virtual environment
 python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
+venv\Scripts\activate          # Windows
+# source venv/bin/activate      # macOS / Linux
 
 # 3. Install dependencies
 pip install -r requirements.txt
@@ -123,7 +123,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Open `http://127.0.0.1:5000` in your browser.
+Open `http://127.0.0.1:5000` in your browser. Requires Python 3.10 or newer.
 
 ## Usage
 
@@ -146,7 +146,6 @@ Open `http://127.0.0.1:5000` in your browser.
 - Model comparison with cross-validation and hyperparameter tuning
 - More metrics (precision, recall, F1, ROC-AUC, R-squared)
 - Per-session datasets instead of one shared dataset
-- Exporting the cleaned dataset
 - Saving the scaler together with the model
 - Cloud deployment
 

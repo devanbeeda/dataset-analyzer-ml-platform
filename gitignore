@@ -1,17 +1,12 @@
-# Python
 __pycache__/
 *.pyc
 venv/
 .env
-
-# Uploaded datasets and generated files
 uploads/
 static/plots/
 models/
 *.pkl
 *.joblib
-
-# OS / editor
 .DS_Store
 Thumbs.db
 .vscode/
